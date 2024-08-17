@@ -17,7 +17,7 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tabs": "^1.1.0",
     "@sentry/angular": "^8.25.0",
-    "@sentry/nextjs": "^8.25.0",
+    "@sentry/nextjs": "^8.26.0",
     "chart.js": "^4.4.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -38,6 +38,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@sentry/cli": "^2.33.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
