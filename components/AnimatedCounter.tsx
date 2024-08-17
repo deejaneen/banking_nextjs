@@ -8,7 +8,7 @@ const AnimatedCounter = ({ amount }: { amount:number }) => {
       duration={2}
       decimal="."
       decimals={2}
-      prefix='Php'
+      prefix='$'
       end={amount} 
       />
     </div>
