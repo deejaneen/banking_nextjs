@@ -138,7 +138,7 @@ const AuthForm = ({ type }: { type: string }) => {
                   </div>
                 </>
               )}
-
+              
               <CustomInput control={form.control} name='email' label="Email" placeholder='Enter your email' />
 
               <CustomInput control={form.control} name='password' label="Password" placeholder='Enter your password' />
@@ -156,7 +156,18 @@ const AuthForm = ({ type }: { type: string }) => {
               </div>
             </form>
           </Form>
-
+          <div>
+          <h2 className='header-2'>
+                Test Credentials: 
+              </h2>
+              <p>
+                test@deeja.dev
+              </p>
+              <p>
+                password
+              </p>
+          </div>
+       
           <footer className="flex justify-center gap-1">
             <p className="text-14 font-normal text-gray-600">
               {type === 'sign-in'
