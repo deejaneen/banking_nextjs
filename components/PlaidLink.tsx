@@ -67,6 +67,17 @@ const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
           <p className='text-[16px] font-semibold text-black-2'>Connect bank</p>
         </Button>
       )}
+       <div>
+          <h2 className='header-2'>
+                Sandbox create account credentials
+              </h2>
+              <p>
+                user_good
+              </p>
+              <p>
+                pass_good
+              </p>
+          </div>
     </>
   )
 }
