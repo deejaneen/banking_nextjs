@@ -1,85 +1,99 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { Button } from './ui/button'
-import { PlaidLinkOnSuccess, PlaidLinkOptions, usePlaidLink } from 'react-plaid-link'
-import { useRouter } from 'next/navigation';
-import { createLinkToken, exchangePublicToken } from '@/lib/actions/user.actions';
-import Image from 'next/image';
+import React, { useCallback, useEffect, useState } from "react";
+import { Button } from "./ui/button";
+import {
+  PlaidLinkOnSuccess,
+  PlaidLinkOptions,
+  usePlaidLink,
+} from "react-plaid-link";
+import { useRouter } from "next/navigation";
+import {
+  createLinkToken,
+  exchangePublicToken,
+} from "@/lib/actions/user.actions";
+import Image from "next/image";
 
 const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
   const router = useRouter();
 
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState("");
 
   useEffect(() => {
     const getLinkToken = async () => {
       const data = await createLinkToken(user);
 
       setToken(data?.linkToken);
-    }
+    };
 
     getLinkToken();
   }, [user]);
 
-  const onSuccess = useCallback<PlaidLinkOnSuccess>(async (public_token: string) => {
-    await exchangePublicToken({
-      publicToken: public_token,
-      user,
-    })
+  const onSuccess = useCallback<PlaidLinkOnSuccess>(
+    async (public_token: string) => {
+      await exchangePublicToken({
+        publicToken: public_token,
+        user,
+      });
 
-    router.push('/');
-  }, [user])
-  
+      router.push("/");
+    },
+    [user]
+  );
+
   const config: PlaidLinkOptions = {
     token,
-    onSuccess
-  }
+    onSuccess,
+  };
 
   const { open, ready } = usePlaidLink(config);
-  
+
   return (
     <>
-      {variant === 'primary' ? (
+      {variant === "primary" ? (
+        <div>
+          <Button
+            onClick={() => open()}
+            disabled={!ready}
+            className="plaidlink-primary"
+          >
+            Connect bank
+          </Button>
+          <div>
+            <h2 className="header-2">Sandbox create account credentials</h2>
+            <p>user_good</p>
+            <p>pass_good</p>
+            <p>Leave everything else blank</p>
+          </div>
+        </div>
+      ) : variant === "ghost" ? (
         <Button
           onClick={() => open()}
-          disabled={!ready}
-          className="plaidlink-primary"
+          variant="ghost"
+          className="plaidlink-ghost"
         >
-          Connect bank
-        </Button>
-      ): variant === 'ghost' ? (
-        <Button onClick={() => open()} variant="ghost" className="plaidlink-ghost">
-          <Image 
+          <Image
             src="/icons/connect-bank.svg"
             alt="connect bank"
             width={24}
             height={24}
           />
-          <p className='hiddenl text-[16px] font-semibold text-black-2 xl:block'>Connect bank</p>
+          <p className="hiddenl text-[16px] font-semibold text-black-2 xl:block">
+            Connect bank
+          </p>
         </Button>
-      ): (
+      ) : (
         <Button onClick={() => open()} className="plaidlink-default">
-          <Image 
+          <Image
             src="/icons/connect-bank.svg"
             alt="connect bank"
             width={24}
             height={24}
           />
-          <p className='text-[16px] font-semibold text-black-2'>Connect bank</p>
+          <p className="text-[16px] font-semibold text-black-2">Connect bank</p>
         </Button>
       )}
-       <div>
-          <h2 className='header-2'>
-                Sandbox create account credentials
-              </h2>
-              <p>
-                user_good
-              </p>
-              <p>
-                pass_good
-              </p>
-          </div>
+      {}
     </>
-  )
-}
+  );
+};
 
-export default PlaidLink
+export default PlaidLink;
